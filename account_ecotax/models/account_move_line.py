@@ -46,7 +46,7 @@ class AcountMoveLine(models.Model):
 
     def _get_new_vals_list(self):
         self.ensure_one()
-        new_vals_list = [
+        return [
             Command.create(
                 {
                     "classification_id": ecotaxline_prod.classification_id.id,
@@ -55,7 +55,6 @@ class AcountMoveLine(models.Model):
             )
             for ecotaxline_prod in self.product_id.all_ecotax_line_product_ids
         ]
-        return new_vals_list
 
     @api.depends("product_id")
     def _compute_ecotax_line_ids(self):
@@ -71,7 +70,7 @@ class AcountMoveLine(models.Model):
             line.ecotax_line_ids = update
 
     def edit_ecotax_lines(self):
-        view = {
+        return {
             "name": ("Ecotax classification"),
             "view_type": "form",
             "view_mode": "form",
@@ -81,4 +80,3 @@ class AcountMoveLine(models.Model):
             "target": "new",
             "res_id": self.id,
         }
-        return view

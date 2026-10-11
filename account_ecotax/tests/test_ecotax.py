@@ -114,8 +114,7 @@ class TestInvoiceEcotaxCommon(BaseCommon):
             with move_form.invoice_line_ids.new() as line_form:
                 line_form.product_id = product
 
-        invoice = move_form.save()
-        return invoice
+        return move_form.save()
 
     @classmethod
     def _make_product(cls, ecotax_classification):
@@ -125,7 +124,7 @@ class TestInvoiceEcotaxCommon(BaseCommon):
         """
         tmpl = cls.env["product.template"].create(
             {
-                "name": " - ".join(["Product", ecotax_classification.name]),
+                "name": f"Product - {ecotax_classification.name}",
                 "ecotax_line_product_ids": [
                     (
                         0,
@@ -159,7 +158,7 @@ class TestInvoiceEcotaxCommon(BaseCommon):
 
         tmpl = cls.env["product.template"].create(
             {
-                "name": " - ".join(["Product", ecotax_classification.name]),
+                "name": f"Product - {ecotax_classification.name}",
                 "ecotax_line_product_ids": [
                     (
                         0,
@@ -409,6 +408,8 @@ class TestInvoiceEcotaxCommon(BaseCommon):
 
 
 class TestInvoiceEcotax(TestInvoiceEcotaxCommon):
+    _test_user_groups = None
+
     def test_01_default_fixed_ecotax(self):
         self._test_01_default_fixed_ecotax()
 
