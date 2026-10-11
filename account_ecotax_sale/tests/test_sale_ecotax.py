@@ -105,6 +105,8 @@ class TestsaleEcotaxCommon(TestInvoiceEcotaxCommon):
 
 
 class TestsaleEcotax(TestsaleEcotaxCommon):
+    _test_user_groups = None
+
     def test_01_classification_weight_based_ecotax(self):
         self._test_01_classification_weight_based_ecotax()
 
